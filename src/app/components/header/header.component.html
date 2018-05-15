@@ -2,9 +2,11 @@
     <!-- Logo -->
     <a href="#" class="logo" style="min-height: 55px;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>VOGUE</b></span>
+        <span class="logo-mini">
+            <b>VOGUE</b>
+        </span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><!--<img style="width:250px;height:50px;" src="/assets/dist/img/logo.png" />-->VogueAfriq</span>
+        <span class="logo-lg">VogueAfriq</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -33,11 +35,12 @@
                                     <!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="/assets/dist/img/logo.png" class="img-circle" alt="User Image">
+                                            <img src="/assets/dist/img/avatar.png" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             DCG
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            <small>
+                                                <i class="fa fa-clock-o"></i> 5 mins</small>
                                         </h4>
                                         <p>DCG has approved your application?</p>
                                     </a>
@@ -46,7 +49,9 @@
 
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
+                        <li class="footer">
+                            <a href="#">See All Messages</a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Notifications: style can be found in dropdown.less -->
@@ -73,14 +78,16 @@
 
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                        <li class="footer">
+                            <a href="#">View all</a>
+                        </li>
                     </ul>
                 </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!--   <img src="/assets/dist/img/bat.png" class="user-image" alt="User Image"> -->
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="/assets/dist/img/bat.png" class="user-image" alt="User Image">
                         <span class="hidden-xs">{{profile?.name}}</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -89,7 +96,7 @@
                             <!--   <img src="/NCS/dist/img/bat.png" class="img-circle" alt="User Image"> -->
 
                             <p>
-                               {{profile?.name}}
+                                {{profile?.name}}
                                 <small>Member since : -</small>
                             </p>
                         </li>
@@ -112,7 +119,7 @@
             </ul>
         </div>
     </nav>
-     <div id="feedback_err" [style.display]="'none'" style="background-color: red;"></div>
-     <div id="feedback_success" [style.display]="'none'" style="background-color: green;"></div>
-            
+    <div id="feedback_err" [style.display]="'none'" style="background-color: red;"></div>
+    <div id="feedback_success" [style.display]="'none'" style="background-color: green;"></div>
+
 </header>
