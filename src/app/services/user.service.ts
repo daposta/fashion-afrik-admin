@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Globals } from '../shared/api';
+
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/toPromise';
 
 declare var $: any;
@@ -20,108 +24,49 @@ export class UserService {
 
 	private loggedIn = false;
 
+	authToken = localStorage.getItem('auth_token');
 
-	constructor(private http: Http, private router: Router, private globals: Globals) { }
 
-	login(email: string, password: string) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
+	// constructor(private http: Http, private router: Router, private globals: Globals) { }
+	constructor(private http: HttpClient, private router: Router, private globals: Globals) { }
+
+	login(email: string, password: string): Observable<any> {
+		const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+
 		return this.http.post(this.loginUrl, JSON.stringify({ email, password }), { headers })
-			.subscribe(res => {
-				let data = res.json();
+	}
 
-				if (data.token) {
-					localStorage.setItem('auth_token', data.token);
-					localStorage.setItem('user', JSON.stringify(data.user));
-					window.location.href = '/';
-
-				}
-				else {
-					this.router.navigateByUrl('/login');
-				}
-
-			}, error => {
-
-				let msg = JSON.parse(error._body)['message'];
-
-				$.toast({
-					text: msg,
-					position: 'top-center',
-					'icon': 'error'
-				})
-
-
-
+	logout(): Observable<any> {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json', 'Authorization': 'JWT ' + this.authToken
 			})
+		};
+		return this.http.post(this.logoutUrl, {}, httpOptions)
+	}
 
+	register(data: any): Observable<any> {
+		const headers = new HttpHeaders({'Content-Type': 'application/json'})
 
-	};
+		return this.http.post(this.registerUrl, JSON.stringify(data))
+	}
 
+	// activateAccount(data: any) {
+	// 	console.log(data);
+	// 	return this.http.get(this.activationUrl + data['uid'] + '/' + data['token'] + '/')
+	// 		.toPromise()
+	// 		.then(response => response.json())
+	// 		.catch(this.handleError);
+	// };
 
-	logout() {
-		let v = this.page_header();
-		// localStorage.clear();
-		// this.router.navigate(['/login']);
-
-		this.http.post(this.logoutUrl, {}, v).subscribe(res => {
-			localStorage.clear();
-			this.loggedIn = false;
-			this.router.navigate(['/login']);
-		}, (err) => {
-			localStorage.clear();
-			this.router.navigate(['/login']);
-
-		})
-
-	};
-
-
-	register(data: any) {
-
-		//let error =  <HTMLInputElement>document.getElementById('feedback_success');
-		return this.http.post(this.registerUrl, data)
-			.subscribe(res => {
-
-				let msg = JSON.parse(res['_body'])['message'];
-				$.toast({
-					text: msg,
-					position: 'top-center',
-					'icon': 'success',
-					showHideTransition: 'slide',
-				});
-
-
-			}, error => {
-
-				let msg = JSON.parse(error._body)['message'];
-				$.toast({
-					text: msg,
-					position: 'top-center',
-					icon: 'error',
-					showHideTransition: 'slide',
-				});
-
+	getCurrentProfile(): Observable<any> {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json', 'Authorization': 'JWT ' + this.authToken
 			})
-
-	};
-
-
-	activateAccount(data: any) {
-		console.log(data);
-		return this.http.get(this.activationUrl + data['uid'] + '/' + data['token'] + '/')
-			.toPromise()
-			.then(response => response.json())
-			.catch(this.handleError);
-	};
-
-	getCurrentProfile() {
-
-		let v = this.page_header();
-		return this.http.get(this.userProfileUrl, v)
-			.toPromise()
-			.then(response => response.json())
-		//.catch(this.handleError);
-	};
+		};
+		return this.http.get(this.userProfileUrl, httpOptions)
+	}
 
 	private page_header() {
 		let data = localStorage.getItem('auth_token');

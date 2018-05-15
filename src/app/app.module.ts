@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -132,7 +133,7 @@ const appRoutes: Routes = [
     MerchantListingComponent,
   ],
   imports: [
-    BrowserModule, HttpModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes, {}),
+    BrowserModule, HttpModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes, {}),
   ],
   providers: [AuthGuard, NoAuthGuard, Globals],
   bootstrap: [AppComponent]
