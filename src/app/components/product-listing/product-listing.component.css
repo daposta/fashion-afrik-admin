@@ -1,3 +1,15 @@
 table td{
 	vertical-align: middle;
 }
+
+.label-error {
+    background-color: transparent;
+    color: #E76F15;
+}
+
+.search {
+	position: relative;
+	margin-top: 15px;
+	max-width: 250px;
+    display: inline-block;
+}

@@ -17,9 +17,14 @@ export class ProductTypeListingComponent implements OnInit {
   	this.fetchProductTypes()
   }
 
-  fetchProductTypes(){
-  	this.productTypeSrv.fetchProductTypes().then(response => this.productTypes = response.results)
-  	.catch(err => this.error = err)
+  fetchProductTypes() {
+    this.productTypeSrv.fetchProductTypes()
+      .subscribe(res => {
+        console.log(res);
+        this.productTypes = res;
+      }, err => {
+        console.log(err);
+      })
   }
 
 }

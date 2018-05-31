@@ -1,73 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import {Router} from '@angular/router';
+import { Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
 import { Globals } from '../shared/api';
-import 'rxjs/add/operator/toPromise';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class StoreService {
 
+  private storesUrl = this.globals.STORES_URL;
+  authToken = localStorage.getItem('auth_token');
 
-  private merchantsUrl = this.globals.MERCHANTS_URL; 
+  constructor(private http: HttpClient, private globals: Globals, private router: Router) { }
 
-  constructor(private http: Http, private globals: Globals,  private router:Router) { }
+  fetchStores(): Observable<any> {
+    const headers = new HttpHeaders({'Authorization': 'JWT ' + this.authToken})
 
-  fetchStores(){
-  	  let v = this.page_header();
-    return this.http.get(this.merchantsUrl, v)
-              .toPromise()
-              .then(response => response.json())
-              .catch(this.handleError);
-  };
-
-  findStoreByUUID(data: string){
-   
-    let v = this.page_header();
-    console.log(data);
-     return this.http.get(this.merchantsUrl + data +'/', v)
-              .toPromise()
-              .then(response => response.json())
-              .catch(this.handleError);
-  };
-
-
-  updateStoreInfo(product:any= {}){
-     let v = this.page_header();
-    //let _data = JSON.stringify(product);
-    if (product){
-        this.http.patch(this.merchantsUrl + product.id + '/', product, v).subscribe(
-           data => {
-
-             //this.toasterService.pop('success', 'Client Info updated', '');
-             let msg = JSON.parse(data['_body'])['message'];
-              
-            
-           },
-           error => {
-             let msg = JSON.parse(error._body)['message'];
-        
-             
-           }
-        );
-    }
-     
-
-  };
-
-
-
-  private page_header(){
-     let data =  localStorage.getItem('auth_token');
-      let headers = new Headers();
-      let opt: RequestOptions;
-      headers.append('Authorization', 'JWT ' + data );
-      opt = new RequestOptions({headers: headers})  ;
-      return opt;
+    return this.http.get(this.storesUrl, {headers})
   }
 
-   private handleError(error: any) {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  };
+  findStoreByUUID(data: string): Observable<any> {
+    const headers = new HttpHeaders({'Authorization': 'JWT ' + this.authToken})
+
+    return this.http.get(this.storesUrl + data + '/', {headers})
+  }
+
+  updateStoreInfo(data: any): Observable<any> {
+    console.log(data);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': 'JWT ' + this.authToken
+      })
+    };
+
+    return this.http.put(this.storesUrl + data.id + '/', data, httpOptions)
+  }
 
 }

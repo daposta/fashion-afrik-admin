@@ -45,11 +45,11 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.userSrv.login(this.user.email, this.user.password)
         .subscribe(res => {
-          let data = res;
+          // let data = res;
           console.log(res);
-          if (data.token) {
-            localStorage.setItem('auth_token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+          if (res.data.token) {
+            localStorage.setItem('auth_token', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
             this.loading = false;
             window.location.href = '/';
           } else {

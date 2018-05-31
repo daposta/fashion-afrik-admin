@@ -2,7 +2,7 @@
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 916px;">
+    <div class="content-wrapper" style="min-height: 100vh">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -10,7 +10,11 @@
 
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li>
+                    <a routerLink="/">
+                        <i class="fa fa-dashboard"></i> Home
+                    </a>
+                </li>
                 <li class="active">Create Product Type</li>
             </ol>
         </section>
@@ -25,50 +29,44 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <form role="form" [formGroup]="productTypeForm" (ngSubmit)="saveCategory(productTypeForm.value)" novalidate>
+                            <form role="form" [formGroup]="productTypeForm" (ngSubmit)="saveProductType()" novalidate>
+                                <div class="row">
+                                    <!-- text input -->
+                                    <div class="form-group col-sm-6">
+                                        <label>Category</label>
+                                        <select class="form-control" [formControl]="productTypeForm.controls['l1category']" [(ngModel)]="productType.l1category">
+                                            <option *ngFor="let item of parentCategorys" [value]="item.slug">{{item.name}}</option>
+                                        </select>
+                                        <div *ngIf="productTypeForm.controls['l1category'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Category is required</div>
+                                    </div>
 
-                             <div class="row">
-                                <!-- text input -->
+                                    <div class="form-group col-sm-6">
+                                        <label>Product-Type Name</label>
+                                        <input type="text" class="form-control" [formControl]="productTypeForm.controls['name']" [(ngModel)]="productType.name" required>
 
-                                 <div class="form-group col-sm-6">
-                                    <label>Category</label>
-                                   <select class="form-control" [formControl]="productTypeForm.controls['category']" >
-                                      <option *ngFor="let item of parentCategorys" [value]="item.slug">{{item.name}}</option>
-                                   </select>
-                                    <div *ngIf="productTypeForm.controls['category'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Category is required</div>
+                                        <div *ngIf="productTypeForm.controls['name'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Product Type Name is required</div>
+                                    </div>
                                 </div>
-                                
-                                <div class="form-group col-sm-6">
-                                    <label> Name</label>
-                                    <input type="text" class="form-control"  [formControl]="productTypeForm.controls['name']" required>
 
-                                      <div *ngIf="productTypeForm.controls['name'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Product Type Name is required</div>
+                                <div class="row">
+
+                                    <div class="form-group col-sm-6">
+                                        <button type="submit" class="btn btn-accent pull-right btn-flat" [disabled]="loading">
+                                            Publish
+                                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+                                        </button>
+                                    </div>
                                 </div>
-
-                               
-                              
-                               
-                            </div>
-                            
-
-                            
-
-                             <div class="row">
-                            
-                                <div class="form-group col-sm-6">
-                                    <input type="submit" class="btn btn-accent pull-right btn-flat" value="Publish"/>
-                                </div>
-                            </div>
                             </form>
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
-             
-                    </div>
 
-</section>
+            </div>
+
+        </section>
     </div>
 
 </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

@@ -1,0 +1,17 @@
+.search {
+	position: relative;
+	margin-top: 15px;
+	max-width: 250px;
+    display: inline-block;
+}
+
+.no-item {
+	position: relative;
+	top: 150px;
+	font-size: 32px;
+}
+
+.label-error {
+    background-color: transparent;
+    color: #E76F15;
+}

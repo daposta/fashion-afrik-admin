@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { FilterPipe } from './pipes/filter.pipe';
+
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { NoAuthGuardService as NoAuthGuard } from './auth/no-auth-guard.service';
 
@@ -15,7 +17,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductListingComponent } from './components/product-listing/product-listing.component';
-import { NewProductComponent } from './components/new-product/new-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { OrderListingComponent } from './components/order-listing/order-listing.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
@@ -34,7 +35,6 @@ import { CustomersListingComponent } from './components/customers-listing/custom
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 import { InventoryDetailComponent } from './components/inventory-detail/inventory-detail.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
-import { RegisterComponent } from './components/register/register.component';
 import { PaymentReportsComponent } from './components/payment-reports/payment-reports.component';
 import { SalesReportsComponent } from './components/sales-reports/sales-reports.component';
 import { InventoryReportsComponent } from './components/inventory-reports/inventory-reports.component';
@@ -48,6 +48,9 @@ import { SubCategoryListingComponent } from './components/sub-category-listing/s
 import { NewSubCategoryComponent } from './components/new-sub-category/new-sub-category.component';
 import { MerchantDetailComponent } from './components/merchant-detail/merchant-detail.component';
 import { MerchantListingComponent } from './components/merchant-listing/merchant-listing.component';
+import { TagsListingComponent } from './components/tags-listing/tags-listing.component';
+import { TagsDetailComponent } from './components/tags-detail/tags-detail.component';
+import { NewTagComponent } from './components/new-tag/new-tag.component';
 
 
 
@@ -56,10 +59,8 @@ const appRoutes: Routes = [
 
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'activate/:uid/:token', component: AccountActivationComponent, canActivate: [NoAuthGuard] },
   { path: 'products', component: ProductListingComponent, canActivate: [AuthGuard] },
-  { path: 'new-product', component: NewProductComponent, canActivate: [AuthGuard] },
 
   { path: 'categorys', component: CategoryListingComponent, canActivate: [AuthGuard] },
   { path: 'new-category', component: NewCategoryComponent, canActivate: [AuthGuard] },
@@ -88,6 +89,10 @@ const appRoutes: Routes = [
   { path: 'merchants', component: MerchantListingComponent, canActivate: [AuthGuard] },
   { path: 'merchants/:id', component: MerchantDetailComponent, canActivate: [AuthGuard] },
 
+  { path: 'tags', component: TagsListingComponent, canActivate: [AuthGuard] },
+  { path: 'tags/:id', component: TagsDetailComponent, canActivate: [AuthGuard] },
+  { path: 'new-tag', component: NewTagComponent, canActivate: [AuthGuard] },
+
 
 ]
 
@@ -98,7 +103,6 @@ const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     ProductListingComponent,
-    NewProductComponent,
     EditProductComponent,
     OrderListingComponent,
     OrderDetailComponent,
@@ -117,7 +121,6 @@ const appRoutes: Routes = [
     CustomerDetailComponent,
     InventoryDetailComponent,
     MyProfileComponent,
-    RegisterComponent,
     PaymentReportsComponent,
     SalesReportsComponent,
     InventoryReportsComponent,
@@ -131,6 +134,10 @@ const appRoutes: Routes = [
     NewSubCategoryComponent,
     MerchantDetailComponent,
     MerchantListingComponent,
+    TagsListingComponent,
+    TagsDetailComponent,
+    NewTagComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule, HttpModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes, {}),

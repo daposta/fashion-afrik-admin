@@ -1,53 +1,90 @@
 import { Component, OnInit } from '@angular/core';
-
-import {FormBuilder,FormGroup, Validators, FormArray} from '@angular/forms'
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { StoreService } from '../../services/store.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-merchant-detail',
   templateUrl: './merchant-detail.component.html',
   styleUrls: ['./merchant-detail.component.css'],
-   providers: [ StoreService ]
+  providers: [StoreService]
 })
 export class MerchantDetailComponent implements OnInit {
- 
-  private formSubmitAttempt: boolean;
 
-  storeForm:FormGroup;
-   store: any= {};
+  formSubmitAttempt: boolean;
+  loading: boolean;
+  storeForm: FormGroup;
+  merchantProfile: any = {};
+  store: any = {};
 
-  constructor(private fb: FormBuilder,private route: ActivatedRoute, private storeSrv:StoreService,) { }
+  constructor(private fb: FormBuilder, private storeSrv: StoreService, private route: ActivatedRoute, private router: Router) { }
 
- ngOnInit() {
-  	 this.storeForm = this.fb.group({
-        'name':['', Validators.required],
-         'description':['', Validators.required],
-          'address1':['', ],
-           'mobile':['', Validators.required],
-        //'subCategories': [],
-        
+  ngOnInit() {
+    this.storeForm = this.fb.group({
+      'name': [''],
+      'id': [''],
+      'description': [''],
+      'address': [''],
+      'status': ['']
+    });
 
-      });
-  	 this.route.params.switchMap((params: Params) => 
-			 	this.storeSrv.findStoreByUUID( params['id']))
-			 .subscribe(
-			 	data => {
-			           this.store = data;
-                    
-			         }
+    this.route.params.switchMap((params: Params) => 
+      this.storeSrv.findStoreByUUID(params['id']))
+        .subscribe(store => this.onStoreRetrieved(store)),
+        (error => console.log(error))
 
-			 	);
-      
   }
 
+  onStoreRetrieved(store) {
+    if (this.storeForm) {
+      this.storeForm.reset();
+    }
+    this.store = store;
+    // console.log(store);
 
-   updateMerchantInfo(data){
+    this.storeForm.setValue({
+      'id': this.store.id,
+      'name': this.store.name,
+      'description': this.store.description,
+      'address': this.store.address,
+      'status': this.store.status,
+    });
+  }
+
+  updateMerchantInfo() {
     this.formSubmitAttempt = true;
-    if (this.storeForm.valid){
-       this.store['id'] = this.store['id'];
-  	    this.storeSrv.updateStoreInfo(this.store);
-       }
+    this.loading = true;
+    // console.log(this.storeForm.value);
+
+    this.storeSrv.updateStoreInfo(this.storeForm.value)
+      .subscribe(res => {
+        this.loading = false;
+        // console.log(res);
+        $.toast({
+          text: 'Profile updated',
+          position: 'top-center',
+          icon: 'success',
+          loader: false,
+          allowToastClose: false,
+          showHideTransition: 'plain',
+          hideAfter: 2000,
+        });
+        this.router.navigateByUrl('/merchants');
+      }, err => {
+        this.loading = false;
+        console.log(err);
+        $.toast({
+          text: 'Profile update failed',
+          position: 'top-center',
+          icon: 'error',
+          loader: false,
+          allowToastClose: false,
+          showHideTransition: 'plain',
+          hideAfter: 2000,
+        });
+      });
   }
 
 }

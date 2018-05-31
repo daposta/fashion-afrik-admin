@@ -1,14 +1,21 @@
 <div class="col-md-12 login-wrapper">
     <div class="login-box">
         <div class="login-logo">
-            <a href="/" style="color:#fff">VogueAfriq Admin</a>
+            <!-- <a routerLink="/">VogueAfriq</a> -->
+            <a routerLink="#">
+                <img src="assets/dist/img/vogueBg3.png" alt="" class="vogueBg">
+            </a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg very-bold">Sign in to your account</p>
+            <p class="text-center">
+                <b>ADMIN</b>
+            </p>
+            <p class="login-box-msg">Sign in to your account</p>
 
             <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
                 <div class="form-group has-feedback">
+                    <label for="email">Email</label>
                     <input type="text" class="form-control" [(ngModel)]="user.email" placeholder="Email" [formControl]="loginForm.controls['email']"
                         pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" required>
                     <span class="ion-ios-email-outline form-control-feedback"></span>
@@ -20,12 +27,13 @@
                 </div>
 
                 <div class="form-group has-feedback">
+                    <label for="password">Password</label>
                     <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Password" [formControl]="loginForm.controls['password']"
                         required>
                     <span class="ion-ios-locked-outline form-control-feedback"></span>
                     <div *ngIf="loginForm.controls['password'].hasError('required') && formSubmitAttempt" class="form-error">Password is required</div>
 
-                    <a href="/forgot-password" class="pull-right" style="font-weight: 700;
+                    <a routerLink="/forgot-password" class="pull-right" style="font-weight: 700;
     margin: 10px 0;
     font-size: 12px;">Forgot my password</a>
                     <br>
@@ -33,21 +41,16 @@
                     <label>
                         <input type="checkbox"> Remember Me
                     </label>
-                    <button type="submit" class="btn btn-accent btn-block btn-flat b-r-10">
+                    <button type="submit" class="btn btn-accent btn-block btn-flat b-r-10" [disabled]="loading">
                         Sign In
                         <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
-                    </button>
-
+                    </button><br>
+                    <!-- <p>Dont have an account?
+                        <a routerLink="/register" class="" style="font-weight: 700; margin: 10px 0; font-size: 12px;">Register</a>
+                    </p> -->
                 </div>
             </form>
-
-
-
-
-
-
-
         </div>
-        <!-- /.login-box-body -->
+        <app-footer></app-footer>
     </div>
 </div>

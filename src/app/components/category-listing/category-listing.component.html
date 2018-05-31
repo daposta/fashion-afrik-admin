@@ -7,10 +7,13 @@
         <section class="content-header">
             <h1>
                 Manage Product Categories
-             
+
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="ion-home-android"></i> Home</a></li>
+                <li>
+                    <a routerLink="#">
+                        <i class="ion-home-android"></i> Home</a>
+                </li>
                 <li class="active">Manage Categories</li>
             </ol>
         </section>
@@ -21,41 +24,33 @@
             <div class="row">
                 <div class="box-body">
                     <a routerLink="/new-category" class="btn btn-sm btn-accent text-bold pull-right">
-                         Add New Category
+                        Add New Category
                     </a>
-                   <div class="clearfix"></div>
-                     <br><br>
-                    
+                    <div class="clearfix"></div>
+                    <br>
+                    <br>
+
                     <div class="table-responsive">
                         <table class="table datatable table-striped no-margin">
                             <thead>
                                 <tr>
                                     <th>Category Name</th>
-                                    <th>Parent Category</th>
-                                    
-
+                                    <!-- <th>Parent Category</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of categorys">
-                                    <td class="very-bold">{{item.name}}</td>
-                                  
-                                    <td class="very-bold">{{item.parentCategory?.name}}</td>
-                                  
+                                <tr *ngFor="let category of categorys">
+                                    <td class="very-bold">{{category.name}}</td>
+                                    <!-- <td class="very-bold">{{item.parentCategory?.name}}</td> -->
                                 </tr>
-                                
-                               
-                               
-                           
                             </tbody>
                         </table>
                     </div>
-                  
+
                     <!-- /.table-responsive -->
                 </div>
-                </div>
-            </section>
-        </div>
-
             </div>
-            <app-footer></app-footer>
+        </section>
+    </div>
+</div>
+<!-- <app-footer></app-footer> -->

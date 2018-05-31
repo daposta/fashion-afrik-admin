@@ -6,11 +6,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Manage Merchant <span class="very-bold product-ref">#79281</span>
-
+                Manage Merchant
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li>
+                    <a routerLink="/">
+                        <i class="fa fa-dashboard"></i> Home</a>
+                </li>
                 <li class="active">Edit Merchant</li>
             </ol>
         </section>
@@ -25,75 +27,58 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <form role="form" [formGroup]="storeForm" (ngSubmit)="updateProductType(storeForm.value)" novalidate>
+                            <form role="form" [formGroup]="storeForm" (ngSubmit)="updateMerchantInfo()" novalidate>
 
-                             <div class="row">
-                                <!-- text input -->
-                                <div class="form-group col-sm-6">
-                                    <label> Name</label>
-                                    <input type="text" class="form-control" [(ngModel)]="store.name"  [formControl]="storeForm.controls['name']" value="{{store.name}}"  required>
+                                <div class="row">
+                                    <!-- text input -->
+                                    <div class="form-group col-sm-6">
+                                        <label>Store ID</label>
+                                        <input type="text" class="form-control" [formControl]="storeForm.controls['id']" readonly>
+                                    </div>
 
-                                      <div *ngIf="storeForm.controls['name'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Store Name is required</div>
+                                    <div class="form-group col-sm-6">
+                                        <label>Store Name</label>
+                                        <input type="text" class="form-control" [(ngModel)]="storeForm.name" [formControl]="storeForm.controls['name']">
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>Description</label>
+                                        <input type="text" class="form-control" [(ngModel)]="storeForm.description" [formControl]="storeForm.controls['description']">
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" [(ngModel)]="storeForm.address" [formControl]="storeForm.controls['address']">
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>Status</label>
+                                        <select class="form-control" [formControl]="storeForm.controls['status']">
+                                            <option>{{store.status}}</option>
+                                            <option *ngIf="store.status === 'PENDING'" value="APPROVED">APPROVED</option>
+                                            <option *ngIf="store.status === 'APPROVED'" value="PENDING">PENDING</option>
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
-                                    <label>Description</label>
-                                    <input type="text" class="form-control" [(ngModel)]="store.description"  [formControl]="storeForm.controls['description']" value="{{store.description}}"  required>
-
-                                      <div *ngIf="storeForm.controls['description'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Store Description is required</div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <button type="submit" class="btn btn-accent pull-right btn-flat" [disabled]="loading">
+                                            Publish
+                                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+                                        </button>
+                                    </div>
                                 </div>
-
-
-
-                                 
-                            
-                            </div>
-
-                             <div class="row">
-
-                              <div class="form-group col-sm-6">
-                                    <label> Address</label>
-                                    <input type="text" class="form-control" [(ngModel)]="store.mobile"  [formControl]="storeForm.controls['mobile']" value="{{store.mobile}}"  required>
-
-                                      <div *ngIf="storeForm.controls['mobile'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Store Name is required</div>
-                                </div>
-
-                             <div class="form-group col-sm-6">
-                                    <label> Address</label>
-                                    <input type="text" class="form-control" [(ngModel)]="store.address1"  [formControl]="storeForm.controls['address1']" value="{{store.address1}}"  required>
-
-                                    <!--   <div *ngIf="storeForm.controls['address1'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Store Name is required</div> -->
-                                </div>
-
-                             </div>
-                           <!--  {{productType.category.0.id}} -->
-                           <!--  <div class="form-group col-sm-6">
-                                    <label>Category</label>
-                                   <select class="form-control" [formControl]="productTypeForm.controls['category']" [(ngModel)]="productType.category" >
-                                      <option *ngFor="let item of categorys" [value]="item.slug" 
-                                      [selected]="category === item.id">{{item.name}}</option>
-                                   </select>
-                                    <div *ngIf="productTypeForm.controls['category'].hasError('required') && formSubmitAttempt" class="alert alert-danger">Category is required</div>
-                                </div> -->
-
-                           
-
-                             <div class="row">
-                            
-                                <div class="form-group col-sm-6">
-                                    <input type="submit" class="btn btn-accent pull-right btn-flat" value="Publish"/>
-                                </div>
-                            </div>
                             </form>
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
-             
-                    </div>
 
-</section>
+            </div>
+
+        </section>
     </div>
 
 </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

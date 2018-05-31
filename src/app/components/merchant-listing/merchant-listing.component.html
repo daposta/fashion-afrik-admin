@@ -9,7 +9,10 @@
                 Manage Merchants
             </h3>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="ion-home-android"></i> Home</a></li>
+                <li>
+                    <a routerLink="#">
+                        <i class="ion-home-android"></i> Home</a>
+                </li>
                 <li class="active">Manage Merchants</li>
             </ol>
         </section>
@@ -18,51 +21,45 @@
         <section class="content">
             <!-- Info boxes -->
             <div class="row" style="background: #fff; padding: 0 30px">
-                <div class="box-body">
-                    <!-- <a routerLink="/new-product" class="btn btn-sm btn-accent text-bold pull-right">Create New Product
-                    </a> -->
-<div class="clearfix"></div>
-                     <br><br>
-                   
-                    
+                <div class="box-body" style="position: relative; min-height: 500px">
+                    <input type="text" placeholder="Search" class="search form-control" [(ngModel)]="query">
+                    <div class="clearfix"></div>
+                    <br>
+                    <br>
+
                     <div class="table-responsive">
                         <table class="table  table-striped no-margin">
                             <thead>
                                 <tr>
-                                    <!-- <th>Product ID</th>
-                                    <th>Product Image</th> -->
                                     <th>Merchant</th>
-                                     <th>Email</th>
-                                    <th>Registration Date</th>
-                                   
+                                    <th>Merchant ID</th>
+                                    <th>Description</th>
                                     <th>Status</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of merchants">
-                                   <!--  <td>OR9842</a></td>
-                                    <td>
-                                        <img src="assets/dist/img/img-placeholder.png" alt="Product Image" width="40">
-                                    </td> -->
-
-                                    <td class="very-bold"><a routerLink="/merchants/{{item.id}}">{{item.name}}</a>
+                                <tr *ngFor="let merchant of merchants | filter : query">
+                                    <td class="very-bold">
+                                        <a routerLink="/merchants/{{merchant.id}}">{{merchant.name}}</a>
                                     </td>
-                                    <td class="very-bold">{{item.user?.email}}</td>
-                                     <td class="very-bold">{{item.user?.date_joined | date}}</td>
-                         
-                                    <td><span class="label label-success">Active</span></td>
-
+                                    <td class="very-bold">
+                                        <a routerLink="/merchants/{{merchant.id}}">{{merchant.id}}</a>
+                                    </td>
+                                    <td class="very-bold">
+                                        <a routerLink="/merchants/{{merchant.id}}">{{merchant.description}}</a>
+                                    </td>
+                                    <td>
+                                        <span class="label label-success" *ngIf="merchant.status === 'APPROVED'">{{merchant.status}}</span>
+                                        <span class="label label-error" *ngIf="merchant.status === 'PENDING'">{{merchant.status}}</span>
+                                    </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
-                </div>
-            </section>
-        </div>
-
             </div>
-            <app-footer></app-footer>
+        </section>
+    </div>
+</div>
+<!-- <app-footer></app-footer> -->

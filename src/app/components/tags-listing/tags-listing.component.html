@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+
+  <div class="content-wrapper" style="min-height: 512px;">
+    <section class="content-header" style="padding-top: 25px; padding-bottom: 10px">
+      <h1>
+        Tags
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a routerLink="#">
+            <i class="ion ion-android-home"></i> Home</a>
+        </li>
+        <li class="active">Tags</li>
+      </ol>
+    </section>
+
+    <div class="content">
+      <div class="row" style="background: #fff; padding: 0 30px;">
+        <div class="box-body">
+          <a routerLink="/new-tag" class="btn btn-sm btn-accent text-bold pull-right">Create New Tag</a>
+          <div class="clearfix"></div>
+          <br>
+          <br>
+
+          <div class="table-responsive">
+            <table class="table table-striped no-margin">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tag of tags">
+                  <td class="very-bold">
+                    <a routerLink="/tags/:id">{{tag.name}}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,20 +6,30 @@ import { SubCategoryService } from '../../services/sub-category.service';
   selector: 'app-sub-category-listing',
   templateUrl: './sub-category-listing.component.html',
   styleUrls: ['./sub-category-listing.component.css'],
-  providers: [ ProductTypeService, SubCategoryService ]
+  providers: [ProductTypeService, SubCategoryService]
 })
 export class SubCategoryListingComponent implements OnInit {
- subs: any[];
+  subCategorys: any[];
   error: any;
-  constructor(private productTypeSrv:ProductTypeService, private subCategorySrv: SubCategoryService ) { }
+  constructor(private productTypeSrv: ProductTypeService, private subCategorySrv: SubCategoryService) { }
 
   ngOnInit() {
-  	this.fetchSubCategorys()
+    this.fetchSubCategorys()
   }
 
-  fetchSubCategorys(){
-  	this.subCategorySrv.fetchSubCategorys().then(response => this.subs = response.results)
-  	.catch(err => this.error = err)
+  // fetchSubCategorys(){
+  // 	this.subCategorySrv.fetchSubCategorys().then(response => this.subs = response.results)
+  // 	.catch(err => this.error = err)
+  // }
+
+  fetchSubCategorys() {
+    this.subCategorySrv.fetchSubCategorys()
+      .subscribe(res => {
+        console.log(res);
+        this.subCategorys = res;
+      }, err => {
+        console.log(err);
+      })
   }
 
 }

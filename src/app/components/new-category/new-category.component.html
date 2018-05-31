@@ -10,7 +10,10 @@
 
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li>
+                    <a routerLink="#">
+                        <i class="fa fa-dashboard"></i> Home</a>
+                </li>
                 <li class="active">Create New Category</li>
             </ol>
         </section>
@@ -27,43 +30,36 @@
                         <div class="box-body">
                             <form role="form" [formGroup]="categoryForm" (ngSubmit)="saveCategory()" novalidate>
 
-                             <div class="row">
-                                <!-- text input -->
-                                <div class="form-group col-sm-6">
-                                    <label>Category Name</label>
-                                    <input type="text" class="form-control" [(ngModel)]="category.name" [formControl]="categoryForm.controls['name']" required>
+                                <div class="row">
+                                    <!-- text input -->
+                                    <div class="form-group col-sm-6">
+                                        <label>Category Name</label>
+                                        <input type="text" class="form-control" [(ngModel)]="category.name" [formControl]="categoryForm.controls['name']" required>
 
-                                      <div *ngIf="categoryForm.controls['name'].hasError('required') && formSubmitAttempt" style="color: red">Category Name is required</div>
-                                </div>
-                            
-                            </div>
-                            <!--  <div class="row">
-                              
-                                <div class="form-group col-sm-6">
-                                    <label>Select Parent Category</label>
-                                   <select class="form-control" [(ngModel)]="category.parent" [formControl]="categoryForm.controls['parent']" >
-                                      <option *ngFor="let item of parentCategorys" [value]="item.slug">{{item.name}}</option>
-                                   </select>
-                                </div>
-                          
-                            </div> -->
+                                        <div *ngIf="categoryForm.controls['name'].hasError('required') && formSubmitAttempt" class="form-error">Category Name is required</div>
+                                    </div>
 
-                             <div class="row">
-                            
-                                <div class="form-group col-sm-6">
-                                    <input type="submit" class="btn btn-accent pull-right btn-flat" value="Publish"/>
                                 </div>
-                            </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-sm-6">
+                                        <button type="submit" class="btn btn-accent pull-right btn-flat" [disabled]="loading">
+                                            Publish
+                                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
-             
-                    </div>
 
-</section>
+            </div>
+
+        </section>
     </div>
 
 </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

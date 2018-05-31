@@ -1,39 +1,21 @@
 import { Injectable } from '@angular/core';
-
-import { Http, Headers, RequestOptions } from '@angular/http';
-import {Router} from '@angular/router';
+import { Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { Globals } from '../shared/api';
-import 'rxjs/add/operator/toPromise';
-declare var $: any;
+import { Observable } from 'rxjs/Observable'
 
 @Injectable()
 export class CurrencyService {
 
-  private currencysUrl = this.globals.CURRENCY_URL; 
+  private currencysUrl = this.globals.CURRENCY_URL;
+  authToken = localStorage.getItem('auth_token');
 
-  constructor(private http: Http, private globals: Globals,  private router:Router) { }
+  constructor(private http: HttpClient, private globals: Globals) { }
 
-  fetchCurrencys(){
-  	  let v = this.page_header();
-    return this.http.get(this.currencysUrl, v)
-              .toPromise()
-              .then(response => response.json())
-              .catch(this.handleError);
-  };
+  fetchCurrencys() {
+    const headers = new HttpHeaders({'Authorization': 'JWT ' + this.authToken})
 
-
-  private page_header(){
-     let data =  localStorage.getItem('auth_token');
-      let headers = new Headers();
-      let opt: RequestOptions;
-      headers.append('Authorization', 'JWT ' + data );
-      opt = new RequestOptions({headers: headers})  ;
-      return opt;
+    return this.http.get(this.currencysUrl, {headers})
   }
-
-   private handleError(error: any) {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  };
 
 }

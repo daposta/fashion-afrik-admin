@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     if (tempUser) {
       this.user = JSON.parse(tempUser);
     }
-    this.getStoreProfile();
+    // this.getStoreProfile();
 
 
     document.body.classList.add("skin-blue");
@@ -31,16 +31,16 @@ export class HeaderComponent implements OnInit {
     //document.body.classList.add("wysihtml5 - supported");
   }
 
-  getStoreProfile() {
-    this.userSrv.getCurrentProfile()
-      .subscribe(res => {
-        // console.log(res);
-        localStorage.setItem('store', JSON.stringify(res));
-        this.profile = JSON.parse(localStorage.getItem('store'));
-      }, err => {
-        // console.log(err);
-      })
-  }
+  // getStoreProfile() {
+  //   this.userSrv.getCurrentProfile()
+  //     .subscribe(res => {
+  //       // console.log(res);
+  //       localStorage.setItem('store', JSON.stringify(res));
+  //       this.profile = JSON.parse(localStorage.getItem('store'));
+  //     }, err => {
+  //       // console.log(err);
+  //     })
+  // }
 
   logout() {
     this.userSrv.logout()
