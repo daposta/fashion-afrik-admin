@@ -52,7 +52,7 @@
                                         <a routerLink="/products/{{product.id}}">{{product.l2category_name}}</a>
                                     </td>
                                     <td>
-                                        <a routerLink="/products/{{product.id}}">{{product.currency_code}}&nbsp;{{product.sale_price | number}}</a>
+                                        <a routerLink="/products/{{product.id}}">{{product.currency_code}}&nbsp;{{product.store_price | number}}</a>
                                     </td>
                                     <td>
                                         <span class="label label-success" *ngIf="product.status === 'APPROVED'">{{product.status}}</span>
