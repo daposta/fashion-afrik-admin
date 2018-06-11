@@ -14,15 +14,17 @@ export class TagsListingComponent implements OnInit {
   constructor(private tagSrv: TagService) { }
 
   ngOnInit() {
+
     this.fetchTags()
   }
 
   fetchTags() {
-    this.tagSrv.fetchTags().subscribe(
-      res => {
-        console.log(res);
-        this.tags = res;
+
+    this.tagSrv.fetchTags().subscribe(res => {
+        // console.log(res);
+        this.tags = res.data;
       }, err => {
+        
         console.log(err);
       }
     )

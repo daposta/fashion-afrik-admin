@@ -33,7 +33,7 @@ export class StoreService {
       })
     };
 
-    return this.http.put(this.storesUrl + data.id + '/', data, httpOptions)
+    return this.http.patch(this.storesUrl + data.id + '/', data, httpOptions)
   }
 
 }

@@ -38,11 +38,13 @@ export class NewProductTypeComponent implements OnInit {
   }
 
   fetchCategorys() {
-    this.categorySrv.fetchCategories()
-      .subscribe(res => {
-        this.parentCategorys = res;
-        console.log(this.parentCategorys);
+
+    this.categorySrv.fetchCategories().subscribe(res => {
+
+        this.parentCategorys = res.data;
+        // console.log(this.parentCategorys);
       }, err => {
+        
         console.log(err);
       });
   }

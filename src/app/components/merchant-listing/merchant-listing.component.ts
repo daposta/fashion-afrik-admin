@@ -17,15 +17,18 @@ export class MerchantListingComponent implements OnInit {
   constructor(private storeSrv: StoreService) { }
 
   ngOnInit() {
+
     this.fetchMerchants();
   }
 
   fetchMerchants() {
-    this.storeSrv.fetchStores()
-     .subscribe(res => {
-       this.merchants = res;
+
+    this.storeSrv.fetchStores().subscribe(res => {
+
+       this.merchants = res.data;
       //  console.log(this.merchants);
      }, err => {
+
        console.log(err);
      })
   }

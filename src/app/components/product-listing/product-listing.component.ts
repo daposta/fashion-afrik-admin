@@ -24,13 +24,12 @@ export class ProductListingComponent implements OnInit {
   }
 
   fetchProducts(){
-  	// this.productSrv.fetchProducts().then(response=> this.products = response.results)
-    // .catch(err => this.error = err)
-    this.productSrv.fetchProducts().subscribe(
-      res => {
-        console.log(res);
-        this.products = res;
+
+    this.productSrv.fetchProducts().subscribe(res => {
+        // console.log(res);
+        this.products = res.data;
       }, err => {
+        
         console.log(err);
       }
     )

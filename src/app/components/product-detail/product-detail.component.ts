@@ -142,59 +142,79 @@ export class ProductDetailComponent implements OnInit {
   }
 
   fetchCategorys() {
+
     this.categorySrv.fetchCategories().subscribe((res: any) => {
-      this.categorys = res;
+
+      this.categorys = res.data;
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchProductTypes() {
+
     this.productTypeSrv.fetchProductTypes().subscribe((res: any) => {
-      this.productTypes = res;
+
+      this.productTypes = res.data;
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchSubCategorys() {
+
     this.subCategorySrv.fetchSubCategorys().subscribe((res: any) => {
-      this.subCategorys = res;
+
+      this.subCategorys = res.data;
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchCurrencys() {
+
     this.currencySrv.fetchCurrencys().subscribe((res: any) => {
-      this.currencys = res;
-      console.log(this.currencys);
+      this.currencys = res.data;
+      // console.log(this.currencys);
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchSizes() {
+
     this.sizeSrv.fetchSizes().subscribe((res: any) => {
-      this.sizes = res;
+
+      this.sizes = res.data;
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchColors() {
+
     this.colorSrv.fetchColors().subscribe((res: any) => {
-      this.colors = res;
+
+      this.colors = res.data;
     }, err => {
+
       console.log(err);
     })
   }
 
   fetchTags() {
+
     this.tagSrv.fetchTags().subscribe((res: any) => {
-      this.tags = res;
+
+      this.tags = res.data;
       console.log(this.tags);
     }, err => {
+
       console.log(err);
     })
   }
@@ -221,13 +241,6 @@ export class ProductDetailComponent implements OnInit {
 
     //return this.selectedUsers3.filter(selUser => selUser.id === user.id).length > 0;
   }
-
-
-  // updateProduct() {
-  //   this.new_product['id'] = this.product['id'];
-  //   this.productSrv.updateProductInfo(this.new_product);
-
-  // };
 
   updateProduct() {
     this.loading = true;

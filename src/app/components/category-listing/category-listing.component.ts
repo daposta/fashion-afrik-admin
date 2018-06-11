@@ -19,11 +19,12 @@ export class CategoryListingComponent implements OnInit {
   }
 
   fetchCategorys() {
-    this.categorySrv.fetchCategories()
-      .subscribe(res => {
-        console.log(res);
-        this.categorys = res;
+    this.categorySrv.fetchCategories().subscribe(res => {
+
+        // console.log(res);
+        this.categorys = res.data;
       }, err => {
+        
         console.log(err);
       })
   }

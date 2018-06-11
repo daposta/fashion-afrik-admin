@@ -57,24 +57,28 @@ export class NewSubCategoryComponent implements OnInit {
 
 
   fetchCategorys() {
-    this.categorySrv.fetchCategories()
-      .subscribe(res => {
-        console.log(res);
-        this.categorys = res;
+
+    this.categorySrv.fetchCategories().subscribe(res => {
+
+        // console.log(res);
+        this.categorys = res.data;
       }, err => {
+
         console.log(err);
       })
   }
 
   fetchProductTypeForCategory(event) {
+
     // let category = event.target.id;
     let category = event.srcElement.attributes.value || event.currentTarget.value;
     console.log(category);
-    this.productTypeSrv.fetchProductTypesParam(category)
-      .subscribe(res => {
-        this.productTypes = res;
-        console.log(this.productTypes);
+    this.productTypeSrv.fetchProductTypesParam(category).subscribe(res => {
+
+        this.productTypes = res.data;
+        // console.log(this.productTypes);
       }, err => {
+        
         console.log(err);
       })
   }

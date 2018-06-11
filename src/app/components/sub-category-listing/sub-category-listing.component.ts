@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductTypeService } from '../../services/product-type.service';
 import { SubCategoryService } from '../../services/sub-category.service';
+import { resolveDefinition } from '@angular/core/src/view/util';
 
 @Component({
   selector: 'app-sub-category-listing',
@@ -14,20 +15,18 @@ export class SubCategoryListingComponent implements OnInit {
   constructor(private productTypeSrv: ProductTypeService, private subCategorySrv: SubCategoryService) { }
 
   ngOnInit() {
+
     this.fetchSubCategorys()
   }
 
-  // fetchSubCategorys(){
-  // 	this.subCategorySrv.fetchSubCategorys().then(response => this.subs = response.results)
-  // 	.catch(err => this.error = err)
-  // }
-
   fetchSubCategorys() {
-    this.subCategorySrv.fetchSubCategorys()
-      .subscribe(res => {
-        console.log(res);
-        this.subCategorys = res;
+
+    this.subCategorySrv.fetchSubCategorys().subscribe(res => {
+
+        // console.log(res);
+        this.subCategorys = res.data;
       }, err => {
+        
         console.log(err);
       })
   }
